@@ -26,6 +26,7 @@ public class SolutionTest {
 
     @After
     public void tearDown() throws Exception {
+        nums = null;
     }
 
     @Test
