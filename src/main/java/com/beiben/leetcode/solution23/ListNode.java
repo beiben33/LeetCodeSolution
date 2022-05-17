@@ -1,5 +1,8 @@
 package com.beiben.leetcode.solution23;
 
+import java.util.Calendar;
+import java.util.Random;
+
 public class ListNode {
     int val;
     ListNode next;
@@ -17,6 +20,19 @@ public class ListNode {
             this.next = next;
             this.val = arr[0];
         }
+    }
+
+    ListNode(int arrElemCount, int maxVal) {
+        int[] arr = new int[arrElemCount];
+        Random random = new Random(Calendar.getInstance().hashCode());
+
+        ListNode next = null;
+        for (int i = arr.length - 1; i > 0; i--) {
+            ListNode e = new ListNode(Math.abs(random.nextInt(maxVal)) + 1, next);
+            next = e;
+        }
+        this.next = next;
+        this.val = arr[0];
     }
 
     @Override
