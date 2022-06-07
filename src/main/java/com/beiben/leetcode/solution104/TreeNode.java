@@ -14,6 +14,8 @@ public class TreeNode {
      TreeNode left;
      TreeNode right;
 
+     static Integer NUM_RANGE = 10000;
+
      TreeNode() {}
 
      TreeNode(Integer val) { this.val = val; }
@@ -25,29 +27,33 @@ public class TreeNode {
      }
 
      public TreeNode ofArray(Integer[] arr) {
-         TreeNode root = this;
-         if (arr.length == 0) root = null;
+         TreeNode treeNode = this;
+         if (arr.length == 0) treeNode = null;
          else if (arr.length == 1) this.val = arr[0];
-         else ofArrayIdx(root, arr, 1);
+         else {
+             this.val = arr[0];
+             ofArrayIdx(treeNode, arr, 1);
+         }
 
-         return root;
+         return treeNode;
      }
 
      private void ofArrayIdx(TreeNode cur, Integer[] arr, int idx) {
          log.debug("Thread id={}, idx={}, array value={}", Thread.currentThread().getId(), idx - 1, arr[idx - 1]);
+         if (cur.val.compareTo(NUM_RANGE) > 0) return;
          int leftIdx = 2 * idx;
          int rightIdx = 2 * idx + 1;
          if (leftIdx <= arr.length) {
-             cur.left = new TreeNode(arr[leftIdx - 1]);
-             if (arr[leftIdx - 1] != null) {
+             cur.left = new TreeNode(arr[leftIdx - 1] == null ? NUM_RANGE + 1 : arr[leftIdx - 1]);
+             //if (arr[leftIdx - 1] != null) {
                  ofArrayIdx(cur.left, arr, leftIdx);
-             }
+             //}
          }
          if (rightIdx <= arr.length) {
-             cur.right = new TreeNode(arr[rightIdx - 1]);
-             if (arr[rightIdx - 1] != null) {
+             cur.right = new TreeNode(arr[rightIdx - 1] == null ? NUM_RANGE + 1 : arr[rightIdx - 1]);
+             //if (arr[rightIdx - 1] != null) {
                  ofArrayIdx(cur.right, arr, rightIdx);
-             }
+             //}
          }
      }
 
@@ -67,13 +73,18 @@ public class TreeNode {
      }
 
      private void toArray(List<Integer> elements, TreeNode parent) {
+         log.debug("Thread id={}, elements={}", Thread.currentThread().getId(), elements);
          if (parent != null) {
-             elements.add(parent.left.val);
-             elements.add(parent.right.val);
-             if (parent.left.val != null) {
+             if (parent.left != null) {
+                 elements.add(parent.left.val);
+             }
+             if (parent.right != null) {
+                 elements.add(parent.right.val);
+             }
+             if (parent.left != null && parent.left.val.compareTo(NUM_RANGE) <= 0) {
                  toArray(elements, parent.left);
              }
-             if (parent.right.val != null) {
+             if (parent.right != null && parent.right.val.compareTo(NUM_RANGE) <= 0) {
                  toArray(elements, parent.right);
              }
          }
