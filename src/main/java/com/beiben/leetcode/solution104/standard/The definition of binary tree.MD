@@ -1,0 +1,1 @@
+The depth of one node is the count of path from root node to the node.
