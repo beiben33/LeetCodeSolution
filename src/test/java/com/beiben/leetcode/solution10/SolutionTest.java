@@ -5,12 +5,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayDeque;
+import java.util.HashSet;
+
 import static org.junit.Assert.*;
 
 @Slf4j
 public class SolutionTest {
 
     private Solution solution;
+
+    private ArrayDeque arrayDeque;
+
+    private HashSet hashSet;
 
     private String s;
     private String p;
@@ -46,4 +53,6 @@ public class SolutionTest {
         log.info("result2 = {}", solution.isMatch(s2, p2));
         log.info("result3 = {}", solution.isMatch(s3, p3));
     }
+
+
 }
