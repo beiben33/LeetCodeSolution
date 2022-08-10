@@ -11,6 +11,8 @@ public class Solution {
             if (next.val >= 10) {
                 next.val = next.val - 10;
                 isCarriedNext = true;
+            } else {
+                isCarriedNext = false;
             }
             l1 = l1.next;
             l2 = l2.next;
@@ -27,6 +29,8 @@ public class Solution {
                 if (l1.val >= 10) {
                     l1.val = l1.val - 10;
                     isCarriedNext = true;
+                } else {
+                    isCarriedNext = false;
                 }
                 if (l1.next != null) {
                     l1 = l1.next;
@@ -45,6 +49,8 @@ public class Solution {
                 if (l2.val >= 10) {
                     l2.val = l2.val - 10;
                     isCarriedNext = true;
+                } else {
+                    isCarriedNext = false;
                 }
                 if (l2.next != null) {
                     l2 = l2.next;
